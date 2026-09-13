@@ -1,3 +1,9 @@
+# Copyright (C) 2026 eva Nowicka
+# This file is part of an original work licensed under the AGPL-3.0.
+# You may use and modify it, but any modification used in a network-accessible
+# service must also be published under the AGPL-3.0.
+# More information: https://www.gnu.org/licenses/agpl-3.0.html
+
 First, read:
     https://neverworldgrid.com/self-host-regions-on-neverworld-grid/
     https://github.com/opensim/opensim
