@@ -18,22 +18,25 @@ provides those files along with a step-by-step setup guide.
 
 ## Setup
 
-### 1. Download OpenSimulator
+### 1. Get OpenSimulator with the Neverworld configuration
 
-Get the latest release from the official OpenSimulator GitHub repository.
-Extract it to a folder of your choice.
+There are two ways:
 
-### 2. Copy the configuration files
+- **Full package** (recommended): OpenSimulator with the Neverworld
+  configuration already in place. Extract it to a
+  folder of your choice. Nothing else to copy: go on to step 2.
+- **Configuration only** (this repository): if you already have OpenSimulator,
+  or prefer to download the official release yourself from the OpenSimulator
+  GitHub repository, extract it and copy the files from this repository's
+  `bin/` folder into the `bin/` folder of your installation, replacing any
+  existing files with the same name:
+  - `OpenSim.ini`
+  - `opensim.bat` (Windows launcher)
+  - `config-include/FlotsamCache.ini`
+  - `config-include/GridCommon.ini`
+  - `config-include/osslEnable.ini`
 
-Copy the files from the `bin/` folder of this repository into the `bin/` folder
-of your OpenSimulator installation, replacing any existing files with the same name:
-
-- `OpenSim.ini`
-- `config-include/FlotsamCache.ini`
-- `config-include/GridCommon.ini`
-- `config-include/osslEnable.ini`
-
-### 3. Configure your region
+### 2. Configure your region
 
 Create a `Regions/Region.ini` file (or let OpenSim generate it on first launch
 by answering the console prompts). You will need:
@@ -49,7 +52,7 @@ by answering the console prompts). You will need:
 
 Make sure `OpenSim.ini` references the same port (line ~579).
 
-### 4. Launch
+### 3. Launch
 
 - **Windows:** run `.\opensim.bat`
 - **Linux / macOS:** run `./opensim.sh`
@@ -78,12 +81,59 @@ On first launch OpenSim will ask a few questions if `Region.ini` does not exist 
    Do **not** copy the `addin-db-*` folders: the new version rebuilds them.
 4. On Linux / macOS restore the execute permission: `chmod +x opensim.sh`
    (copy your old `opensim.sh` only if you had customised it).
-   On Windows, if you had `opensim.bat`, copy it too.
 5. Compare your `OpenSim.ini` with the new `OpenSim.ini.example` (and the
    `config-include/*.example` files) in case the new release added or renamed
    settings.
 6. Start the simulator. Database updates are applied automatically on the first
    launch and cannot be undone — keep `opensim.old` until everything works.
+
+## Moving a region from another grid
+
+> **Do this while your region is still connected to the old grid.** A region
+> database (`OpenSim.db`) only stores references to textures, meshes, scripts
+> and object contents; the content itself lives on the old grid's asset
+> server. If you only copy `OpenSim.db` and connect to Neverworld, your
+> region will show grey objects and empty scripts as soon as the old grid
+> shuts down or its asset server becomes unreachable.
+
+1. **Save your region with its assets.** While still connected to the old grid,
+   in the OpenSim console:
+   ```
+   change region <region name>
+   save oar <region name>.oar
+   ```
+   Repeat for each region. Do **not** use `--no-assets`. Check the file size
+   is plausible, and if you can, test it by loading it into a local standalone
+   OpenSimulator.
+2. **Save your inventory** (optional, if the old grid allows it). From the
+   console of your own region, still connected to the old grid:
+   ```
+   save iar <first> <last> / <password> <first>-<last>.iar -c
+
+    `-c` keeps the information about the original creators.
+   ```
+3. **Set up the region for Neverworld.** Install as described in [Setup](#setup).
+   You may copy your own `config-include/FlotsamCache.ini` and `config-include/osslEnable.ini` from
+   the old installation, since they hold local preferences (asset cache, OSSL
+   permissions). Ask the Neverworld administrators for grid coordinates. On first launch, 
+   give your Neverworld account as the estate owner.
+4. **Load your region:**
+   ```
+   change region <region name>
+   load oar <region name>.oar
+   ```
+   Objects whose owners do not exist on Neverworld are given to the estate owner.
+5. **Load your inventory** into your Neverworld account:
+   ```
+   load iar <first> <last> / <password> <first>-<last>.iar
+   ```
+
+If you come from an old Mono-based OpenSimulator (0.9.2 or earlier, started
+with `OpenSim.exe`), start from the `OpenSim.ini` in this package and carry
+your own settings over by hand, instead of copying your old file.
+
+Respect the permissions and licences of the content you move: items made by
+other creators may not be allowed on another grid.
 
 ## Troubleshooting
 

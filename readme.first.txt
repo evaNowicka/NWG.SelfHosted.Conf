@@ -20,17 +20,24 @@ REQUIREMENTS
 SETUP
 -----
 
-1. Download the latest OpenSimulator release from the official GitHub repository
+1. Get OpenSimulator with the Neverworld configuration. Two ways:
+
+   a) Full package (recommended): OpenSimulator with the Neverworld
+      configuration already in place. Extract it to a folder of your
+      choice; nothing else to copy.
+
+   b) Configuration only: download the latest OpenSimulator release from
+      the official GitHub repository, extract it, and copy the files from
+      the bin/ folder of this package into the bin/ folder of your
+      installation, replacing any existing files:
+        - OpenSim.ini
+        - opensim.bat (Windows launcher)
+        - config-include/FlotsamCache.ini
+        - config-include/GridCommon.ini
+        - config-include/osslEnable.ini
    and extract it to a folder of your choice.
 
-2. Copy the files from the bin/ folder of this package into the bin/ folder
-   of your OpenSimulator installation, replacing any existing files:
-     - OpenSim.ini
-     - config-include/FlotsamCache.ini
-     - config-include/GridCommon.ini
-     - config-include/osslEnable.ini
-
-3. Configure your region.
+2. Configure your region.
    Create Regions/Region.ini (or let OpenSim generate it on first launch).
    You will need:
      - A unique region name
@@ -39,7 +46,7 @@ SETUP
      - Your public IP or FQDN
      - The port you opened (must match OpenSim.ini, around line 579)
 
-4. Launch:
+3. Launch:
      Windows:       .\opensim.bat
      Linux / macOS: ./opensim.sh
 
@@ -67,12 +74,53 @@ UPDATE AN EXISTING INSTALLATION
    Do not copy the 'addin-db-*' folders: the new version rebuilds them.
 4. On Linux / macOS restore the execute permission: 'chmod +x opensim.sh'
    (copy your old 'opensim.sh' only if you had customised it).
-   On Windows, if you had 'opensim.bat', copy it too.
 5. Compare your 'OpenSim.ini' with the new 'OpenSim.ini.example' (and the
    'config-include/*.example' files) in case the new release added or renamed
    settings.
 6. Start the simulator. Database updates are applied automatically on the first
    launch and cannot be undone — keep 'opensim.old' until everything works.
+
+MOVING A REGION FROM ANOTHER GRID
+---------------------------------
+
+IMPORTANT: do this while your region is still connected to the old grid.
+OpenSim.db only stores references to textures, meshes, scripts and object
+contents; the content itself lives on the old grid's asset server. Copying
+only OpenSim.db gives grey objects and empty scripts once the old grid
+shuts down or its asset server becomes unreachable.
+
+1. Save each region with its assets (still on the old grid):
+     change region <region name>
+     save oar <region name>.oar
+   Do not use --no-assets. Check the file size; if you can, test-load it
+   into a local standalone OpenSimulator.
+
+2. Save your inventory (optional, if the old grid allows it):
+     save iar <first> <last> / <password> <first>-<last>.iar -c
+   
+   (-c keeps the information about the original creators) 
+
+3. Set up the region for Neverworld as in SETUP. You may copy your own
+   config-include/FlotsamCache.ini and config-include/osslEnable.ini from
+   the old installation (local preferences: asset cache, OSSL
+   permissions). Ask the Neverworld administrators for grid
+   coordinates. On first launch, give your Neverworld account as the
+   estate owner.
+
+4. Load your region:
+     change region <region name>
+     load oar <region name>.oar
+   Objects whose owners do not exist on Neverworld go to the estate owner.
+
+5. Load your inventory into your Neverworld account:
+     load iar <first> <last> / <password> <first>-<last>.iar
+
+Coming from an old Mono-based OpenSimulator (0.9.2 or earlier, started
+with OpenSim.exe)? Start from the OpenSim.ini in this package and carry
+your own settings over by hand.
+
+Respect the permissions and licences of the content you move: items made
+by other creators may not be allowed on another grid.
 
 TROUBLESHOOTING
 ---------------
