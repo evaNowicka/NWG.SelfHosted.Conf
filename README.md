@@ -109,9 +109,8 @@ On first launch OpenSim will ask a few questions if `Region.ini` does not exist 
    console of your own region, still connected to the old grid:
    ```
    save iar <first> <last> / <password> <first>-<last>.iar -c
-
-    `-c` keeps the information about the original creators.
    ```
+    `-c` keeps the information about the original creators.
 3. **Set up the region for Neverworld.** Install as described in [Setup](#setup).
    You may copy your own `config-include/FlotsamCache.ini` and `config-include/osslEnable.ini` from
    the old installation, since they hold local preferences (asset cache, OSSL

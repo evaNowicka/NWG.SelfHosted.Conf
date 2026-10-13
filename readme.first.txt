@@ -35,7 +35,6 @@ SETUP
         - config-include/FlotsamCache.ini
         - config-include/GridCommon.ini
         - config-include/osslEnable.ini
-   and extract it to a folder of your choice.
 
 2. Configure your region.
    Create Regions/Region.ini (or let OpenSim generate it on first launch).
