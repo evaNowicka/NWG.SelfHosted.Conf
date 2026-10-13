@@ -46,7 +46,7 @@ SETUP
    On first launch OpenSim will prompt for region details if Region.ini
    does not exist yet.
 
-UPDATE AN EXISTING INSTALATION
+UPDATE AN EXISTING INSTALLATION
 --------------------------------
 
 1. Back up first. In the OpenSim console run 'save oar <file>.oar' for each
