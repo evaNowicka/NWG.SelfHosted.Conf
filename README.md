@@ -85,7 +85,7 @@ On first launch OpenSim will ask a few questions if `Region.ini` does not exist 
 6. Start the simulator. Database updates are applied automatically on the first
    launch and cannot be undone — keep `opensim.old` until everything works.
 
-### Troubleshooting
+## Troubleshooting
 
 **Region not visible on the grid:**
 Verify that the port is reachable from the internet. Use an online port-checker tool

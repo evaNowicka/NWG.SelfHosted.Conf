@@ -46,33 +46,33 @@ SETUP
    On first launch OpenSim will prompt for region details if Region.ini
    does not exist yet.
 
-UPDATE AN EXISTING INSTALALATION
+UPDATE AN EXISTING INSTALATION
 --------------------------------
 
-1. Back up first. In the OpenSim console run `save oar <file>.oar` for each
-   region, then stop the simulator with `shutdown` (do not just close the window).
-2. Rename the current folder, e.g. `opensim` → `opensim.old`, and extract the
-   new release into a fresh `opensim` folder.
-3. Copy these from `opensim.old/bin/` into `opensim/bin/`:
+1. Back up first. In the OpenSim console run 'save oar <file>.oar' for each
+   region, then stop the simulator with 'shutdown' (do not just close the window).
+2. Rename the current folder, e.g. 'opensim' → 'opensim.old', and extract the
+   new release into a fresh 'opensim' folder.
+3. Copy these from 'opensim.old/bin/' into 'opensim/bin/':
 
-    - `OpenSim.ini` (Your simulator settings)
-    - `config-include/FlotsamCache.ini`, `GridCommon.ini`, `osslEnable.ini` (Grid connection, cache and OSSL settings)
-    - `Regions/*.ini` (Your region definitions)
-    - `OpenSim.db` (Region contents: objects, terrain, estate (SQLite))
-    - `ScriptEngines/` (Script states (optional; without it scripts restart fresh))
-    - `assetcache/` (Asset cache (optional; avoids downloading everything again))
-    - `OpenSimConsoleHistory.txt` (Console command history (optional))
-    - `OpenSim.log`, `OpenSimStats.log` (Keeps a continuous log history, handy to compare before and after the update (optional; can grow large, archive it if so))
+    - 'OpenSim.ini' (Your simulator settings)
+    - 'config-include/FlotsamCache.ini', 'GridCommon.ini', 'osslEnable.ini' (Grid connection, cache and OSSL settings)
+    - 'Regions/*.ini' (Your region definitions)
+    - 'OpenSim.db' (Region contents: objects, terrain, estate (SQLite))
+    - 'ScriptEngines/' (Script states (optional; without it scripts restart fresh))
+    - 'assetcache/' (Asset cache (optional; avoids downloading everything again))
+    - 'OpenSimConsoleHistory.txt' (Console command history (optional))
+    - 'OpenSim.log', 'OpenSimStats.log' (Keeps a continuous log history, handy to compare before and after the update (optional; can grow large, archive it if so))
 
-   Do not copy the `addin-db-*` folders: the new version rebuilds them.
-4. On Linux / macOS restore the execute permission: `chmod +x opensim.sh`
-   (copy your old `opensim.sh` only if you had customised it).
-   On Windows, if you had `opensim.bat`, copy it too.
-5. Compare your `OpenSim.ini` with the new `OpenSim.ini.example` (and the
-   `config-include/*.example` files) in case the new release added or renamed
+   Do not copy the 'addin-db-*' folders: the new version rebuilds them.
+4. On Linux / macOS restore the execute permission: 'chmod +x opensim.sh'
+   (copy your old 'opensim.sh' only if you had customised it).
+   On Windows, if you had 'opensim.bat', copy it too.
+5. Compare your 'OpenSim.ini' with the new 'OpenSim.ini.example' (and the
+   'config-include/*.example' files) in case the new release added or renamed
    settings.
 6. Start the simulator. Database updates are applied automatically on the first
-   launch and cannot be undone — keep `opensim.old` until everything works.
+   launch and cannot be undone — keep 'opensim.old' until everything works.
 
 TROUBLESHOOTING
 ---------------
@@ -92,7 +92,8 @@ Original files in this package (documentation, custom configuration):
   GNU General Public License v2 or later — see LICENSE
 
 Files derived from the OpenSimulator project (OpenSim.ini, GridCommon.ini,
-FlotsamCache.ini, and any other file originating from OpenSimulator):
-  BSD 3-Clause License — https://opensource.org/licenses/BSD-3-Clause
+FlotsamCache.ini, osslEnable.ini, opensim.bat, and any other file
+originating from OpenSimulator):
+  BSD 3-Clause License — see LICENSE-OpenSimulator.txt
 
 Copyright (c) 2026 eva Nowicka / ENS project
